@@ -1,10 +1,7 @@
 Processing
-  - Sort sentiment results and create final ranking
-- Log and persist final ranking
-- Transform to script
+- Transform to script (output?)
 
 Streaming
-  - Only store tweets that have a country hashtag
 
 
 Separate writing to DB and reading from DB (?)
