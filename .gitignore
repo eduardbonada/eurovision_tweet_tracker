@@ -2,3 +2,6 @@
 .ipynb_checkpoints
 *.txt
 *.db
+*.ppk
+*.pem
+ranking.json

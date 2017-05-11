@@ -33,11 +33,9 @@ class TweetsListener(tweepy.StreamListener):
     def on_status(self, status):
         """ Manage 'status' event."""
 
-        self.count = self.count + 1
-
         tweet_info = status._json;
 
-        print("Received tweet #{} {} => {}".format(self.count, tweet_info['id_str'],tweet_info['text']))
+        #print("Received tweet #{} {} => {}".format(self.count, tweet_info['id_str'],tweet_info['text']))
         #pprint(status)
         # print(tweet_info['id_str'])
 
@@ -49,7 +47,9 @@ class TweetsListener(tweepy.StreamListener):
         try:
             if any(hashtag in tweet_info['text'] for hashtag in all_hashtags):
 
-                print("  - stored")
+                self.count = self.count + 1
+
+                print("Received tweet #{}".format(self.count))
 
                 db.execute("INSERT OR IGNORE INTO TweetsRaw (tweetId,createdAt,storedAt,tweetText,favsCount,rtsCount,language,userId,userFriendsCount,userFollowersCount,userStatusesCount,userFavsCount,userLocation) \
                             VALUES ('{tweetId}','{createdAt}','{storedAt}','{tweetText}','{favsCount}','{rtsCount}','{language}','{userId}','{userFriendsCount}','{userFollowersCount}','{userStatusesCount}','{userFavsCount}','{userLocation}')".format(\
