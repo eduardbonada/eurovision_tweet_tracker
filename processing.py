@@ -44,9 +44,21 @@ Setup
 """
 
 # Model coefficients
+"""
 model_coefs = np.array([-0.28177526, \
                         -15.09077224, 0.64080446, 3.93206855, 3.85856528,  \
-                        13.44687015, 0.76969512, -6.81908351, 2.01213479])[...,None]
+                        13.44687015, 0.76969512, -6.81908351, 2.01213479])[...,None] # semi1
+"""
+model_coefs = np.array([ 2.22157127, -2.0677648 , -0.25456623,  0.0645284 ,  2.79439937])[...,None]; # semis
+
+
+# set the features that will be used in the prediction
+"""
+features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log', \
+            'negative_norm', 'neutral_norm', 'positive_norm', 'tweets_norm']
+"""
+features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log']
+
 
 # Setup sqlite to read from
 sqlite_file = 'eurovision_semi1.db'
@@ -63,10 +75,11 @@ hashtags_semi1 = ['SWE', 'GEO', 'AUS', 'ALB', 'BEL', 'MNE', 'FIN', 'AZE', 'POR',
                     'POL', 'MDA', 'ISL', 'CZE', 'CYP', 'ARM', 'SLO', 'LAT']
 hashtags_semi2 = ['AUT', 'BLR', 'DEN', 'EST', 'MKD', 'HUN', 'IRL', 'ISR', 'LTU', 'MLT', \
                     'NOR', 'ROM', 'SMR', 'SRB', 'SUI', 'NED', 'CRO', 'BUL']
-hashtags_final = ['ARM', 'AZE', 'ITA', 'MDA', 'POL', 'POR', 'UKR', 'AUS', 'BEL', 'CYP', 'FRA', \
-                    'GER', 'GRE', 'ESP', 'GBR', 'SWE', '???', '???', '???', '???', '???', \
-                    '???', '???', '???', '???', '???']
-hashtags = hashtags_semi1
+hashtags_final = ['ARM', 'AZE', 'ITA', 'MDA', 'POL', 'POR', 'UKR', 'AUS', 'BEL', 'CYP', 'FRA',\
+                  'GER', 'GRE', 'ESP', 'GBR', 'SWE', 'BUL', 'BLR', 'CRO', 'HUN', 'DEN',\
+                  'ISR', 'ROM', 'NOR', 'NED', 'AUT']
+hashtags = hashtags_final
+
 
 
 """
@@ -116,23 +129,30 @@ Apply Prediction Model already trained
 """
 
 # Feature engineering
-results['negative_norm'] = (results['negative'] - results['negative'].mean() ) / results['negative'].std()
-results['neutral_norm'] = (results['neutral'] - results['neutral'].mean() ) / results['neutral'].std()
-results['positive_norm'] = (results['positive'] - results['positive'].mean() ) / results['positive'].std()
-results['tweets_norm'] = (results['tweets'] - results['tweets'].mean() ) / results['tweets'].std()
+"""
+results['negative_norm'] = ( (results['negative'] - results['negative'].mean() ) / results['negative'].std() ).fillna(0).replace([np.inf, -np.inf], 0)
+results['neutral_norm'] = ( (results['neutral'] - results['neutral'].mean() ) / results['neutral'].std() ).fillna(0).replace([np.inf, -np.inf], 0)
+results['positive_norm'] = ( (results['positive'] - results['positive'].mean() ) / results['positive'].std() ).fillna(0).replace([np.inf, -np.inf], 0)
+results['tweets_norm'] = ( (results['tweets'] - results['tweets'].mean() ) / results['tweets'].std() ).fillna(0).replace([np.inf, -np.inf], 0)
 
-results['negative_log'] = np.log(results['negative'])
-results['neutral_log'] = np.log(results['neutral'])
-results['positive_log'] = np.log(results['positive'])
-results['tweets_log'] = np.log(results['tweets'])
+results['negative_log'] = ( np.log(results['negative']) ).fillna(0).replace([np.inf, -np.inf], 0)
+results['neutral_log'] = ( np.log(results['neutral']) ).fillna(0).replace([np.inf, -np.inf], 0)
+results['positive_log'] = ( np.log(results['positive']) ).fillna(0).replace([np.inf, -np.inf], 0)
+results['tweets_log'] = ( np.log(results['tweets']) ).fillna(0).replace([np.inf, -np.inf], 0)
+"""
+results['positive_perc'] = results['positive'] / results['positive'].sum()
+results['negative_perc'] = results['negative'] / results['negative'].sum()
+results['neutral_perc'] = results['neutral'] / results['neutral'].sum()
+results['tweets_perc'] = results['tweets'] / results['tweets'].sum()
 
-# set the features that will be used in the prediction
-features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log', \
-            'negative_norm', 'neutral_norm', 'positive_norm', 'tweets_norm']
+results['negative_log'] = np.log(results['negative_perc']).fillna(0).replace([np.inf, -np.inf], 0)
+results['neutral_log'] = np.log(results['neutral_perc']).fillna(0).replace([np.inf, -np.inf], 0)
+results['positive_log'] = np.log(results['positive_perc']).fillna(0).replace([np.inf, -np.inf], 0)
+results['tweets_log'] = np.log(results['tweets_perc']).fillna(0).replace([np.inf, -np.inf], 0)
 
 # Apply model coeficients to data and compute 
 X = results[features].values
-X = np.append(np.ones(X.shape[0])[...,None] ,X , axis=1)
+X = np.append(np.ones(X.shape[0])[...,None] , X, axis=1)
 results['predicted_score'] = np.dot(X, model_coefs)
 
 

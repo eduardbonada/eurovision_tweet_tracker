@@ -7,6 +7,7 @@ Script that listens tweets from the Twitter Streaming API (according to searchin
 # http://adilmoujahid.com/posts/2014/07/twitter-analytics/
 # http://sebastianraschka.com/Articles/2014_sqlite_in_python_tutorial.html
 
+import sys
 import tweepy
 import sqlite3
 from datetime import datetime
@@ -33,18 +34,19 @@ class TweetsListener(tweepy.StreamListener):
     def on_status(self, status):
         """ Manage 'status' event."""
 
-        tweet_info = status._json;
-
-        #print("Received tweet #{} {} => {}".format(self.count, tweet_info['id_str'],tweet_info['text']))
-        #pprint(status)
-        # print(tweet_info['id_str'])
-
-        # Connect to the database sqlite file
-        connection = sqlite3.connect(sqlite_file)
-        db = connection.cursor()
-
-        # Store the tweet in DB
         try:
+
+            tweet_info = status._json;
+
+            #print("Received tweet #{} {} => {}".format(self.count, tweet_info['id_str'],tweet_info['text']))
+            #pprint(status)
+            # print(tweet_info['id_str'])
+
+            # Connect to the database sqlite file
+            connection = sqlite3.connect(sqlite_file)
+            db = connection.cursor()
+
+            # Store the tweet in DB
             if any(hashtag in tweet_info['text'] for hashtag in all_hashtags):
 
                 self.count = self.count + 1

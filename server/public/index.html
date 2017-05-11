@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html ng-app="eurotweetModule">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Eurotweet App</title>
+
+    <!-- LOAD LIBRARIES -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><!-- load bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- load jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script> <!-- load angular -->
+
+    <!-- LOAD HYPER ANGULAR CODE -->
+    <script src="core.js"></script>
+
+    <style>
+        html { overflow-y:scroll; }
+        body { padding-top:50px; }
+    </style>
+
+</head>
+
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-controller="eurotweetController">
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="jumbotron text-center">
+            <h1>Eurovision 2017</h1>
+            <h2 style="color:grey">Prediction of finalists from Semifinal 2</h2>
+        </div>
+
+        <!-- HYPED BANDS LIST -->
+        <div id="ranking-list" class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+
+                <!-- LOOP OVER THE BANDS IN $scope.hyped_bands -->
+                <div ng-repeat="country in ranking">
+                    <h3 class="text-center">
+                        {{ country.name }} : {{ country.score }} [
+                                             {{ country.tweets }}</span> : 
+                                             <span style="color:green">{{ country.positive }}</span> | 
+                                             <span style="color:grey">{{ country.neutral }} | 
+                                             <span style="color:red">{{ country.negative }} </span> ]
+                    </h3>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
