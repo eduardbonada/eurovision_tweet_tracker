@@ -1,4 +1,4 @@
-var eurotweetModule = angular.module('eurotweetModule', []);
+var eurotweetModule = angular.module('eurotweetModule', ["ngTable"]);
 
 eurotweetModule.controller('eurotweetController', function($scope, $http){
 
@@ -6,23 +6,33 @@ eurotweetModule.controller('eurotweetController', function($scope, $http){
     $http.get('/api/ranking')
         .then(function(response) {
             
-            ranking = [];
+            var ranking = [];
+
+            var pos = 1
+
+            var num_tweets = 0
 
             Object.keys(response.data).forEach(function(country, index, array){
                 ranking.push(
-                            {
-                                'name' : country, 
-                                'positive' : response.data[country]['positive'],
-                                'neutral' : response.data[country]['neutral'],
-                                'negative' : response.data[country]['negative'],
-                                'tweets' : response.data[country]['tweets'],
-                                'score' : Math.round(response.data[country]['predicted_score']*100)/100,
-                            }
-                );
+                    {
+                        'position' : pos,
+                        'name' : country, 
+                        'positive' : response.data[country]['positive'],
+                        'neutral' : response.data[country]['neutral'],
+                        'negative' : response.data[country]['negative'],
+                        'tweets' : response.data[country]['tweets'],
+                        'score' : Math.round(response.data[country]['predicted_score']*100)/100
+                    });
+                
+                num_tweets = num_tweets + response.data[country]['tweets'];
+                
+                pos = pos + 1;
 
             });
 
             $scope.ranking = ranking;
+            $scope.num_countries = ranking.length;
+            $scope.num_tweets = num_tweets;
 
             //console.log($scope.ranking);
         });

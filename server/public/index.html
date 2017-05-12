@@ -12,8 +12,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><!-- load bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- load jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script> <!-- load angular -->
+    <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+    <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="sprite-flags-48x48.css">
 
-    <!-- LOAD HYPER ANGULAR CODE -->
+    <!-- LOAD ANGULAR CODE -->
     <script src="core.js"></script>
 
     <style>
@@ -28,24 +31,55 @@
     <div class="container">
 
         <!-- HEADER -->
-        <div class="jumbotron text-center">
-            <h1>Eurovision 2017</h1>
-            <h2 style="color:grey">Prediction of finalists from Semifinal 2</h2>
+        <div class="jumbotron text-center" style="background-color: mediumpurple">
+            <h1 style="color:white">Eurovision 2017</h1>
+            <h2 style="color:lightgray">Prediction of final ranking</h2>
+            <br>
+            <span style="color:rebeccapurple; font-size: x-large">{{num_tweets}} tweets</span>
         </div>
 
-        <!-- HYPED BANDS LIST -->
+        <!-- COUNTRIES LIST -->
         <div id="ranking-list" class="row">
             <div class="col-sm-8 col-sm-offset-2">
 
-                <!-- LOOP OVER THE BANDS IN $scope.hyped_bands -->
+                <!-- LOOP OVER THE COUNTRIES -->
                 <div ng-repeat="country in ranking">
-                    <h3 class="text-center">
-                        {{ country.name }} : {{ country.score }} [
-                                             {{ country.tweets }}</span> : 
-                                             <span style="color:green">{{ country.positive }}</span> | 
-                                             <span style="color:grey">{{ country.neutral }} | 
-                                             <span style="color:red">{{ country.negative }} </span> ]
-                    </h3>
+
+                    <h2 ng-if="country.position <= 5" class="text-center" style="background-color: palegreen; padding: 10px;"> 
+                        {{ country.position }}. {{ country.name }}
+                        <br> 
+                        <span style="font-size: 20px;">
+                             {{ country.tweets }} : 
+                             <span style="color:green">{{ country.positive }}</span> | 
+                             <span style="color:grey">{{ country.neutral }} </span> | 
+                             <span style="color:red">{{ country.negative }} </span>
+                        </span>
+                    </h2>
+
+                    <h2 ng-if="country.position > 5 && country.position < 22" class="text-center" style="background-color: khaki; padding: 5px;"> 
+                        {{ country.position }}. {{ country.name }}
+                        <br> 
+                        <span style="font-size: 20px;">
+                             {{ country.tweets }} : 
+                             <span style="color:green">{{ country.positive }}</span> | 
+                             <span style="color:grey">{{ country.neutral }} </span> | 
+                             <span style="color:red">{{ country.negative }} </span>
+
+                        </span>
+                    </h2>
+
+                    <h2 ng-if="country.position >= 22" class="text-center" style="background-color: salmon; padding: 5px;"> 
+                        {{ country.position }}. {{ country.name }}
+                        <br> 
+                        <span style="font-size: 20px;">
+                             {{ country.tweets }} : 
+                             <span style="color:green">{{ country.positive }}</span> | 
+                             <span style="color:grey">{{ country.neutral }} </span> | 
+                             <span style="color:red">{{ country.negative }} </span>
+
+                        </span>
+                    </h2>
+
                 </div>
 
             </div>
