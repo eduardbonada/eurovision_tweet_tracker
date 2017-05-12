@@ -49,7 +49,7 @@ model_coefs = np.array([-0.28177526, \
                         -15.09077224, 0.64080446, 3.93206855, 3.85856528,  \
                         13.44687015, 0.76969512, -6.81908351, 2.01213479])[...,None] # semi1
 """
-model_coefs = np.array([ 2.22157127, -2.0677648 , -0.25456623,  0.0645284 ,  2.79439937])[...,None]; # semis
+model_coefs = np.array([-8.93416811e-03, -3.18005604e+01, 4.24127046e+00, 2.21510494e+01, 1.51818475e+01])[...,None]; # semis
 
 
 # set the features that will be used in the prediction
@@ -145,10 +145,10 @@ results['negative_perc'] = results['negative'] / results['negative'].sum()
 results['neutral_perc'] = results['neutral'] / results['neutral'].sum()
 results['tweets_perc'] = results['tweets'] / results['tweets'].sum()
 
-results['negative_log'] = np.log(results['negative_perc']).fillna(0).replace([np.inf, -np.inf], 0)
-results['neutral_log'] = np.log(results['neutral_perc']).fillna(0).replace([np.inf, -np.inf], 0)
-results['positive_log'] = np.log(results['positive_perc']).fillna(0).replace([np.inf, -np.inf], 0)
-results['tweets_log'] = np.log(results['tweets_perc']).fillna(0).replace([np.inf, -np.inf], 0)
+results['negative_log'] = np.log(1 + results['negative_perc']).fillna(0).replace([np.inf, -np.inf], 0)
+results['neutral_log'] = np.log(1 + results['neutral_perc']).fillna(0).replace([np.inf, -np.inf], 0)
+results['positive_log'] = np.log(1 + results['positive_perc']).fillna(0).replace([np.inf, -np.inf], 0)
+results['tweets_log'] = np.log(1 + results['tweets_perc']).fillna(0).replace([np.inf, -np.inf], 0)
 
 # Apply model coeficients to data and compute 
 X = results[features].values
