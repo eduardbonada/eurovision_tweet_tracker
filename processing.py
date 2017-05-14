@@ -61,7 +61,7 @@ features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log']
 
 
 # Setup sqlite to read from
-sqlite_file = 'eurovision_semi1.db'
+sqlite_file = 'eurovision_final.db'
 connection = sqlite3.connect(sqlite_file)
 db = connection.cursor()
 
@@ -91,7 +91,7 @@ all_sentiments = []
 for country in hashtags:
 
     # get tweets from DB
-    country_tweets = pd.read_sql_query("SELECT * FROM TweetsRaw WHERE language='en' AND tweetText LIKE '%#{}%'".format(country), connection)
+    country_tweets = pd.read_sql_query("SELECT * FROM TweetsRaw WHERE language='en' AND tweetText LIKE '%#{}%' AND tweetText NOT LIKE 'RT %'".format(country), connection)
 
     # count number of sentiments
     sentiments_count = Counter(country_tweets.apply(get_tweet_sentiment, axis=1))
@@ -109,7 +109,7 @@ all_tweet_counts = []
 for country in hashtags:
 
     # get tweet count from DB
-    db.execute("SELECT COUNT(*) AS count FROM TweetsRaw WHERE tweetText LIKE '%#{}%'".format(country))
+    db.execute("SELECT COUNT(*) AS count FROM TweetsRaw WHERE tweetText LIKE '%#{}%' AND tweetText NOT LIKE 'RT %'".format(country))
     country_tweet_count = db.fetchone()[0]
     
     # append country to list
