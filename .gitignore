@@ -1,7 +1,6 @@
 .DS_Store
 .ipynb_checkpoints
 *.txt
-*.db
 *.ppk
 *.pem
 ranking.json
