@@ -1,5 +1,5 @@
 """
-Script that reads tweets from a database and processes the information to predict the results of the Eurovision Song Contest
+Script that reads tweets from a sqlite database and processes the information to predict the results of the Eurovision Song Contest
 """
 
 import re
@@ -49,15 +49,17 @@ model_coefs = np.array([-0.28177526, \
                         -15.09077224, 0.64080446, 3.93206855, 3.85856528,  \
                         13.44687015, 0.76969512, -6.81908351, 2.01213479])[...,None] # semi1
 """
-model_coefs = np.array([-8.93416811e-03, -3.18005604e+01, 4.24127046e+00, 2.21510494e+01, 1.51818475e+01])[...,None]; # semis
+model_coefs = np.array([-8.93416811e-03, \
+                        -3.18005604e+01, 4.24127046e+00, \
+                        2.21510494e+01, 1.51818475e+01])[...,None]; # semis
 
 
 # set the features that will be used in the prediction
 """
 features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log', \
-            'negative_norm', 'neutral_norm', 'positive_norm', 'tweets_norm']
+            'negative_norm', 'neutral_norm', 'positive_norm', 'tweets_norm'] # semi1
 """
-features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log']
+features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log'] # semis
 
 
 # Setup sqlite to read from
@@ -104,7 +106,7 @@ for country in hashtags:
                             'negative': sentiments_count['negative'] \
                           })
 
-# read all tweets (and just count)
+# read ALL tweets (and just count)
 all_tweet_counts = []
 for country in hashtags:
 
