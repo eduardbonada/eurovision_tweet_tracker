@@ -97,7 +97,7 @@ access_token = '74265344-UOJgWD9vzB9wJvgnet3f63bkQdJ0rLGz9gg67fqDP'
 access_secret = '4AFqod7kCScnSDf9OcgmVeIdnxwa9ZKn9pwwFMBbpLi7u'
 
 # Setup sqlite
-sqlite_file = 'eurovision_final.db'
+sqlite_file = 'eurovision_live.db'
     
 # Manage twitter API access
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
