@@ -1,5 +1,5 @@
 """
-Script that reads tweets from a sqlite database and processes the information to predict the results of the Eurovision Song Contest
+Script that reads tweets from a database and processes the information to predict the results of the Eurovision Song Contest
 """
 
 import re
@@ -49,21 +49,20 @@ model_coefs = np.array([-0.28177526, \
                         -15.09077224, 0.64080446, 3.93206855, 3.85856528,  \
                         13.44687015, 0.76969512, -6.81908351, 2.01213479])[...,None] # semi1
 """
-model_coefs = np.array([-8.93416811e-03, \
-                        -3.18005604e+01, 4.24127046e+00, \
-                        2.21510494e+01, 1.51818475e+01])[...,None]; # semis
+model_coefs = np.array([ -0.04390143, -26.0052558, 4.54566943, 17.292603, 11.12765458])[...,None]; # semis
+
 
 
 # set the features that will be used in the prediction
 """
 features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log', \
-            'negative_norm', 'neutral_norm', 'positive_norm', 'tweets_norm'] # semi1
+            'negative_norm', 'neutral_norm', 'positive_norm', 'tweets_norm']
 """
-features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log'] # semis
+features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log']
 
 
 # Setup sqlite to read from
-sqlite_file = 'eurovision_final.db'
+sqlite_file = '/home/ebonada/python/eurotweet/eurovision_final.db'
 connection = sqlite3.connect(sqlite_file)
 db = connection.cursor()
 
@@ -93,7 +92,7 @@ all_sentiments = []
 for country in hashtags:
 
     # get tweets from DB
-    country_tweets = pd.read_sql_query("SELECT * FROM TweetsRaw WHERE language='en' AND tweetText LIKE '%#{}%' AND tweetText NOT LIKE 'RT %'".format(country), connection)
+    country_tweets = pd.read_sql_query("SELECT * FROM TweetsRaw WHERE language='en' AND tweetText LIKE '%#{}%'".format(country), connection)
 
     # count number of sentiments
     sentiments_count = Counter(country_tweets.apply(get_tweet_sentiment, axis=1))
@@ -106,12 +105,12 @@ for country in hashtags:
                             'negative': sentiments_count['negative'] \
                           })
 
-# read ALL tweets (and just count)
+# read all tweets (and just count)
 all_tweet_counts = []
 for country in hashtags:
 
     # get tweet count from DB
-    db.execute("SELECT COUNT(*) AS count FROM TweetsRaw WHERE tweetText LIKE '%#{}%' AND tweetText NOT LIKE 'RT %'".format(country))
+    db.execute("SELECT COUNT(*) AS count FROM TweetsRaw WHERE tweetText LIKE '%#{}%'".format(country))
     country_tweet_count = db.fetchone()[0]
     
     # append country to list
@@ -167,5 +166,5 @@ ranking = results[['negative', 'neutral', 'positive', 'tweets', 'predicted_score
 print(ranking)
 
 # log to file
-with open('ranking.json', 'w') as f:
+with open('/home/ebonada/python/eurotweet/ranking.json', 'w') as f:
     f.write(ranking.to_json(orient = 'index'))

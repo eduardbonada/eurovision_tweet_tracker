@@ -7,11 +7,13 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import matplotlib as mpl
+mpl.use('Agg') # Force matplotlib to not use any Xwindows backend.
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 # Setup sqlite to read from
-sqlite_file = 'eurovision_final.db'
+sqlite_file = '/home/ebonada/python/eurotweet/eurovision_final.db'
 connection = sqlite3.connect(sqlite_file)
 db = connection.cursor()
 
@@ -24,7 +26,7 @@ try:
 	tweets['createdAt'] = pd.to_datetime(tweets['createdAt'], format ='%a %b %d %H:%M:%S +0000 %Y') + pd.DateOffset(hours=2)
 	tweets.index = tweets['createdAt']
 	tweets = tweets[ tweets['createdAt'] > datetime(2017,5,12,6,0)]
-	recent_tweets = tweets[ tweets['createdAt'] > (datetime.now() - timedelta(hours=2))]
+	recent_tweets = tweets[ tweets['createdAt'] > (datetime.now() - timedelta(hours=-1))]
 
 	fig = plt.figure()
 	
@@ -40,7 +42,7 @@ try:
 
 	# store in file
 	fig = ax2.get_figure()
-	fig.savefig("server/public/tweets.png")
+	fig.savefig("/home/ebonada/python/eurotweet/server/public/tweets.png")
 
-except Error as e:
-	print(e)
+except:
+	print("Error")
