@@ -12,15 +12,25 @@ import sqlite3
 from datetime import datetime
 from pprint import pprint
 
+# set environment
+production = True
+
+# set filenames depending on the environment
+if production == True: 
+    sqlite_file = '/home/ebonada/tests/euro2018/db_2018_live.db'
+else:
+    sqlite_file = 'db_2018_live.db'   
+
 # track number of tweets (developing purposes)
 max_tweets_to_store = -1 # maximum number of tweets to store before shutting down the streaming (-1 for non stop)
 
 # hashtags to store
-all_hashtags = ['#SWE ', '#GEO ', '#AUS ', '#ALB ', '#BEL ', '#MNE ', '#FIN ', '#AZE ', '#POR ',\
-                '#POL ', '#MDA ', '#ISL ', '#CZE ', '#CYP ', '#ARM ', '#SLO ', '#LAT ', '#GRE ',\
-                '#AUT ', '#BLR ', '#DEN ', '#EST ', '#MKD ', '#HUN ', '#IRL ', '#ISR ', '#LTU ',\
-                '#NOR ', '#ROM ', '#SMR ', '#SRB ', '#SUI ', '#NED ', '#CRO ', '#BUL ', '#MLT ',\
-                '#ITA ', '#FRA ', '#ESP ', '#GBR ', '#UKR ', '#GER ']
+all_hashtags = ['#ALB ', '#ARM ', '#AUS ', '#AUT ', '#AZE ', '#BLR ', '#BEL ', '#BUL ',\
+                '#CRO ', '#CYP ', '#CZE ', '#DEN ', '#EST ', '#MKD ', '#FIN ', '#FRA ',\
+                '#GEO ', '#GER ', '#GRE ', '#HUN ', '#ISL ', '#IRL ', '#ISR ', '#ITA ',\
+                '#LAT ', '#LTU ', '#MLT ', '#MDA ', '#MNE ', '#NOR ', '#POL ', '#POR ',\
+                '#ROM ', '#??? ', '#SMR ', '#SRB ', '#SLO ', '#ESP ', '#SWE ', '#SUI ',\
+                '#NED ', '#UKR ', '#GBR ']
 
 # Class that manages the events received from streaming API
 class TweetsListener(tweepy.StreamListener):
@@ -36,7 +46,7 @@ class TweetsListener(tweepy.StreamListener):
         try:
             tweet_info = status._json;
 
-            #print("Received tweet #{} {} => {}".format(self.count, tweet_info['id_str'],tweet_info['text']))
+            print("Received tweet #{} {} => {}".format(self.count, tweet_info['id_str'],tweet_info['text']))
             #pprint(status)
             # print(tweet_info['id_str'])
 
@@ -96,9 +106,6 @@ consumer_secret = 'TuTQKld9os111vx7oMSM3PTfoNz9dZDcnACxIvHGL9euIvLE8I'
 access_token = '74265344-UOJgWD9vzB9wJvgnet3f63bkQdJ0rLGz9gg67fqDP'
 access_secret = '4AFqod7kCScnSDf9OcgmVeIdnxwa9ZKn9pwwFMBbpLi7u'
 
-# Setup sqlite
-sqlite_file = 'eurovision_live.db'
-    
 # Manage twitter API access
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)

@@ -10,6 +10,17 @@ import json
 from textblob import TextBlob
 from collections import Counter
 
+# set environment
+production = True
+
+# set filenames depending on the environment
+if production == True:
+    sqlite_file = '/home/ebonada/tests/euro2018/db_2017_friday_and_final.db'
+    ranking_json_file = '/home/ebonada/tests/euro2018/ranking.json'
+else:
+    sqlite_file = 'db_2017_friday_and_final.db'
+    ranking_json_file = 'ranking.json'
+
 """
 Aux functions
 """
@@ -62,11 +73,10 @@ features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log']
 
 
 # Setup sqlite to read from
-sqlite_file = '/home/ebonada/python/eurotweet/eurovision_final.db'
 connection = sqlite3.connect(sqlite_file)
 db = connection.cursor()
 
-# set country hashtags - semifinal 1
+# set current country hashtags
 all_hashtags = ['SWE', 'GEO', 'AUS', 'ALB', 'BEL', 'MNE', 'FIN', 'AZE', 'POR', \
                 'POL', 'MDA', 'ISL', 'CZE', 'CYP', 'ARM', 'SLO', 'LAT', 'GRE', \
                 'AUT', 'BLR', 'DEN', 'EST', 'MKD', 'HUN', 'IRL', 'ISR', 'LTU', \
@@ -166,5 +176,5 @@ ranking = results[['negative', 'neutral', 'positive', 'tweets', 'predicted_score
 print(ranking)
 
 # log to file
-with open('/home/ebonada/python/eurotweet/ranking.json', 'w') as f:
+with open(ranking_json_file, 'w') as f:
     f.write(ranking.to_json(orient = 'index'))
