@@ -2,12 +2,11 @@
 Script that listens tweets from the Twitter Streaming API (according to searching query) and stores them into the given sqlite db
 """
 
-# https://www.dataquest.io/blog/streaming-data-python/
+# https://marcobo# https://www.dataquest.io/blog/streaming-data-python/
 # https://marcobonzanini.com/2015/03/02/mining-twitter-data-with-python-part-1/
 # http://adilmoujahid.com/posts/2014/07/twitter-analytics/
 # http://sebastianraschka.com/Articles/2014_sqlite_in_python_tutorial.html
 
-import sys
 import tweepy
 import sqlite3
 from datetime import datetime
@@ -32,10 +31,9 @@ class TweetsListener(tweepy.StreamListener):
         super(TweetsListener, self).__init__()
     
     def on_status(self, status):
-        """ Manage 'status' event. (when a tweet is received) """
+        """ Manage 'status' event."""
 
         try:
-
             tweet_info = status._json;
 
             #print("Received tweet #{} {} => {}".format(self.count, tweet_info['id_str'],tweet_info['text']))
@@ -51,7 +49,7 @@ class TweetsListener(tweepy.StreamListener):
 
                 self.count = self.count + 1
 
-                print("Received tweet #{}".format(self.count))
+                print("Received tweet #{} : {}".format(self.count, tweet_info['text']))
 
                 db.execute("INSERT OR IGNORE INTO TweetsRaw (tweetId,createdAt,storedAt,tweetText,favsCount,rtsCount,language,userId,userFriendsCount,userFollowersCount,userStatusesCount,userFavsCount,userLocation) \
                             VALUES ('{tweetId}','{createdAt}','{storedAt}','{tweetText}','{favsCount}','{rtsCount}','{language}','{userId}','{userFriendsCount}','{userFollowersCount}','{userStatusesCount}','{userFavsCount}','{userLocation}')".format(\
@@ -99,7 +97,7 @@ access_token = '74265344-UOJgWD9vzB9wJvgnet3f63bkQdJ0rLGz9gg67fqDP'
 access_secret = '4AFqod7kCScnSDf9OcgmVeIdnxwa9ZKn9pwwFMBbpLi7u'
 
 # Setup sqlite
-sqlite_file = 'eurovision_live.db'
+sqlite_file = 'eurovision_final.db'
     
 # Manage twitter API access
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -112,5 +110,4 @@ api = tweepy.API(auth)
 twitter_stream = tweepy.Stream(auth, TweetsListener())
 
 # Launch streaming
-#twitter_stream.filter(track=['@Primavera_Sound','primavera sound', '#PS2017'])
 twitter_stream.filter(track=['#eurovision'])
