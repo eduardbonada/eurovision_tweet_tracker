@@ -29,24 +29,24 @@ all_hashtags = ['#ALB ', '#ARM ', '#AUS ', '#AUT ', '#AZE ', '#BLR ', '#BEL ', '
                 '#CRO ', '#CYP ', '#CZE ', '#DEN ', '#EST ', '#MKD ', '#FIN ', '#FRA ',\
                 '#GEO ', '#GER ', '#GRE ', '#HUN ', '#ISL ', '#IRL ', '#ISR ', '#ITA ',\
                 '#LAT ', '#LTU ', '#MLT ', '#MDA ', '#MNE ', '#NOR ', '#POL ', '#POR ',\
-                '#ROM ', '#??? ', '#SMR ', '#SRB ', '#SLO ', '#ESP ', '#SWE ', '#SUI ',\
+                '#ROM ', '#RUS ', '#SMR ', '#SRB ', '#SLO ', '#ESP ', '#SWE ', '#SUI ',\
                 '#NED ', '#UKR ', '#GBR ']
 
 # Class that manages the events received from streaming API
 class TweetsListener(tweepy.StreamListener):
- 
+
     def __init__(self):
         """ Initialize listener """
         self.count = 0
         super(TweetsListener, self).__init__()
-    
+
     def on_status(self, status):
         """ Manage 'status' event."""
 
         try:
             tweet_info = status._json;
 
-            print("Received tweet #{} {} => {}".format(self.count, tweet_info['id_str'],tweet_info['text']))
+            #print("Received tweet {} => {}".format(tweet_info['id_str'],tweet_info['text'].encode('utf-8')))
             #pprint(status)
             # print(tweet_info['id_str'])
 

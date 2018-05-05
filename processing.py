@@ -9,13 +9,14 @@ import numpy as np
 import json
 from textblob import TextBlob
 from collections import Counter
+import pickle
 
 # set environment
-production = True
+production = False
 
 # set filenames depending on the environment
 if production == True:
-    sqlite_file = '/home/ebonada/tests/euro2018/db_2017_friday_and_final.db'
+    sqlite_file = '/home/ebonada/tests/euro2018/db_2018_live.db'
     ranking_json_file = '/home/ebonada/tests/euro2018/ranking.json'
 else:
     sqlite_file = 'db_2017_friday_and_final.db'
@@ -33,7 +34,7 @@ def get_tweet_sentiment(tweet):
 
     # create TextBlob object of passed tweet text
     analysis = TextBlob(clean_tweet(tweet['tweetText']))
-    
+
     # set sentiment
     if analysis.sentiment.polarity > 0:
         return 'positive'
@@ -60,8 +61,13 @@ model_coefs = np.array([-0.28177526, \
                         -15.09077224, 0.64080446, 3.93206855, 3.85856528,  \
                         13.44687015, 0.76969512, -6.81908351, 2.01213479])[...,None] # semi1
 """
-model_coefs = np.array([ -0.04390143, -26.0052558, 4.54566943, 17.292603, 11.12765458])[...,None]; # semis
+#model_coefs = np.array([ -0.04390143, -26.0052558, 4.54566943, 17.292603, 11.12765458])[...,None]; # semis
 
+# load scaler and regressor model
+with open("scaler.bin", "rb") as f:
+    scaler = pickle.load(f)
+with open("regressor.bin", "rb") as f:
+    regressor = pickle.load(f)
 
 
 # set the features that will be used in the prediction
@@ -69,28 +75,29 @@ model_coefs = np.array([ -0.04390143, -26.0052558, 4.54566943, 17.292603, 11.127
 features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log', \
             'negative_norm', 'neutral_norm', 'positive_norm', 'tweets_norm']
 """
-features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log']
-
+#features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log']
+with open("features.bin", "rb") as f:
+    features = pickle.load(f)
 
 # Setup sqlite to read from
 connection = sqlite3.connect(sqlite_file)
 db = connection.cursor()
 
 # set current country hashtags
-all_hashtags = ['SWE', 'GEO', 'AUS', 'ALB', 'BEL', 'MNE', 'FIN', 'AZE', 'POR', \
-                'POL', 'MDA', 'ISL', 'CZE', 'CYP', 'ARM', 'SLO', 'LAT', 'GRE', \
-                'AUT', 'BLR', 'DEN', 'EST', 'MKD', 'HUN', 'IRL', 'ISR', 'LTU', \
-                'NOR', 'ROM', 'SMR', 'SRB', 'SUI', 'NED', 'CRO', 'BUL', 'MLT',  \
-                'ITA', 'FRA', 'ESP', 'GBR', 'UKR', 'GER']
-hashtags_semi1 = ['SWE', 'GEO', 'AUS', 'ALB', 'BEL', 'MNE', 'FIN', 'AZE', 'POR', 'GRE', \
-                    'POL', 'MDA', 'ISL', 'CZE', 'CYP', 'ARM', 'SLO', 'LAT']
-hashtags_semi2 = ['AUT', 'BLR', 'DEN', 'EST', 'MKD', 'HUN', 'IRL', 'ISR', 'LTU', 'MLT', \
-                    'NOR', 'ROM', 'SMR', 'SRB', 'SUI', 'NED', 'CRO', 'BUL']
-hashtags_final = ['ARM', 'AZE', 'ITA', 'MDA', 'POL', 'POR', 'UKR', 'AUS', 'BEL', 'CYP', 'FRA',\
-                  'GER', 'GRE', 'ESP', 'GBR', 'SWE', 'BUL', 'BLR', 'CRO', 'HUN', 'DEN',\
-                  'ISR', 'ROM', 'NOR', 'NED', 'AUT']
-hashtags = hashtags_final
-
+all_hashtags = ['ALB', 'ARM', 'AUS', 'AUT', 'AZE', 'BLR', 'BEL', 'BUL',\
+                'CRO', 'CYP', 'CZE', 'DEN', 'EST', 'MKD', 'FIN', 'FRA',\
+                'GEO', 'GER', 'GRE', 'HUN', 'ISL', 'IRL', 'ISR', 'ITA',\
+                'LAT', 'LTU', 'MLT', 'MDA', 'MNE', 'NOR', 'POL', 'POR',\
+                'ROM', 'RUS', 'SMR', 'SRB', 'SLO', 'ESP', 'SWE', 'SUI',\
+                'NED', 'UKR', 'GBR']
+hashtags_semi1 = ['AZE', 'ISL', 'ALB', 'BEL', 'CZE', 'LTU', 'ISR', 'BLR',\
+                  'EST', 'BUL', 'MKD', 'CRO', 'AUT', 'GRE', 'FIN', 'ARM',\
+                  'SUI', 'IRL', 'CYP']
+hashtags_semi2 = ['NOR', 'ROM', 'SRB', 'SMR', 'DEN', 'RUS', 'MDA', 'NED',\
+                  'AUS', 'GEO', 'POL', 'MLT', 'HUN', 'LAT', 'SWE', 'MNE',\
+                  'SLO', 'UKR',]
+hashtags_final = ['POR', 'FRA', 'GER', 'ITA', 'ESP', 'GBR']
+hashtags = all_hashtags
 
 
 """
@@ -161,10 +168,12 @@ results['neutral_log'] = np.log(1 + results['neutral_perc']).fillna(0).replace([
 results['positive_log'] = np.log(1 + results['positive_perc']).fillna(0).replace([np.inf, -np.inf], 0)
 results['tweets_log'] = np.log(1 + results['tweets_perc']).fillna(0).replace([np.inf, -np.inf], 0)
 
-# Apply model coeficients to data and compute 
+# Manually apply model coeficients to data and compute predicted score
 X = results[features].values
 X = np.append(np.ones(X.shape[0])[...,None] , X, axis=1)
-results['predicted_score'] = np.dot(X, model_coefs)
+X_norm = pd.DataFrame(scaler.transform(X))
+X_norm[0] = 1 # set intercept back to 1 (scaler sets it to 0 because of 0 variance)
+results['predicted_score'] = np.dot(X_norm, regressor.coef_.T) # np.dot(X, model_coefs)
 
 
 """
