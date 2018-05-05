@@ -169,10 +169,10 @@ results['negative_perc'] = results['negative'] / results['negative'].sum()
 results['neutral_perc'] = results['neutral'] / results['neutral'].sum()
 results['tweets_perc'] = results['tweets'] / results['tweets'].sum()
 
-results['negative_log'] = np.log(1 + results['negative_perc']).fillna(0).replace([np.inf, -np.inf], 0)
-results['neutral_log'] = np.log(1 + results['neutral_perc']).fillna(0).replace([np.inf, -np.inf], 0)
-results['positive_log'] = np.log(1 + results['positive_perc']).fillna(0).replace([np.inf, -np.inf], 0)
-results['tweets_log'] = np.log(1 + results['tweets_perc']).fillna(0).replace([np.inf, -np.inf], 0)
+results['negative_log'] = np.log(1 + results['negative']).fillna(0).replace([np.inf, -np.inf], 0)
+results['neutral_log'] = np.log(1 + results['neutral']).fillna(0).replace([np.inf, -np.inf], 0)
+results['positive_log'] = np.log(1 + results['positive']).fillna(0).replace([np.inf, -np.inf], 0)
+results['tweets_log'] = np.log(1 + results['tweets']).fillna(0).replace([np.inf, -np.inf], 0)
 
 # Manually apply model coeficients to data and compute predicted score
 X = results[features].values
