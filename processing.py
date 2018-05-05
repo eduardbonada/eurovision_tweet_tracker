@@ -12,15 +12,21 @@ from collections import Counter
 import pickle
 
 # set environment
-production = False
+production = True
 
 # set filenames depending on the environment
 if production == True:
     sqlite_file = '/home/ebonada/tests/euro2018/db_2018_live.db'
     ranking_json_file = '/home/ebonada/tests/euro2018/ranking.json'
+    scaler_file = '/home/ebonada/tests/euro2018/scaler.bin'
+    regressor_file = '/home/ebonada/tests/euro2018/regressor.bin'
+    features_file = '/home/ebonada/tests/euro2018/features.bin'
 else:
     sqlite_file = 'db_2017_friday_and_final.db'
     ranking_json_file = 'ranking.json'
+    scaler_file = 'scaler.bin'
+    regressor_file = 'regressor.bin'
+    features_file = 'features.bin'
 
 """
 Aux functions
@@ -64,9 +70,9 @@ model_coefs = np.array([-0.28177526, \
 #model_coefs = np.array([ -0.04390143, -26.0052558, 4.54566943, 17.292603, 11.12765458])[...,None]; # semis
 
 # load scaler and regressor model
-with open("scaler.bin", "rb") as f:
+with open(scaler_file, "rb") as f:
     scaler = pickle.load(f)
-with open("regressor.bin", "rb") as f:
+with open(regressor_file, "rb") as f:
     regressor = pickle.load(f)
 
 
@@ -76,7 +82,7 @@ features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log', \
             'negative_norm', 'neutral_norm', 'positive_norm', 'tweets_norm']
 """
 #features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log']
-with open("features.bin", "rb") as f:
+with open(features_file, "rb") as f:
     features = pickle.load(f)
 
 # Setup sqlite to read from
