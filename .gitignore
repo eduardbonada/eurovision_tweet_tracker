@@ -3,5 +3,6 @@
 *.txt
 *.ppk
 *.pem
+*.db
 ranking.json
 server/node_modules
