@@ -59,7 +59,7 @@ class TweetsListener(tweepy.StreamListener):
 
                 self.count = self.count + 1
 
-                print("Received tweet #{} : {}".format(self.count, tweet_info['text']))
+                print("Received tweet #{} : {}".format(self.count, tweet_info['text'].encode('utf-8')))
 
                 db.execute("INSERT OR IGNORE INTO TweetsRaw (tweetId,createdAt,storedAt,tweetText,favsCount,rtsCount,language,userId,userFriendsCount,userFollowersCount,userStatusesCount,userFavsCount,userLocation) \
                             VALUES ('{tweetId}','{createdAt}','{storedAt}','{tweetText}','{favsCount}','{rtsCount}','{language}','{userId}','{userFriendsCount}','{userFollowersCount}','{userStatusesCount}','{userFavsCount}','{userLocation}')".format(\
