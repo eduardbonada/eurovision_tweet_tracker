@@ -12,7 +12,7 @@ from collections import Counter
 import pickle
 
 # set environment
-production = False
+production = True
 
 # set filenames depending on the environment
 if production == True:
