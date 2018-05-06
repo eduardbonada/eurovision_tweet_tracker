@@ -12,7 +12,7 @@ from collections import Counter
 import pickle
 
 # set environment
-production = True
+production = False
 
 # set filenames depending on the environment
 if production == True:
@@ -84,6 +84,10 @@ features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log', \
 #features = ['negative_log', 'neutral_log', 'positive_log', 'tweets_log']
 with open(features_file, "rb") as f:
     features = pickle.load(f)
+
+# print out model info
+features_tmp = np.insert(features,0,'intercept')
+print(pd.DataFrame(list(zip(features_tmp, regressor.coef_.ravel())), columns=['features','coefs']))
 
 # Setup sqlite to read from
 connection = sqlite3.connect(sqlite_file)
