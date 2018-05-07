@@ -25,12 +25,12 @@ else:
 max_tweets_to_store = -1 # maximum number of tweets to store before shutting down the streaming (-1 for non stop)
 
 # hashtags to store
-all_hashtags = ['#ALB ', '#ARM ', '#AUS ', '#AUT ', '#AZE ', '#BLR ', '#BEL ', '#BUL ',\
-                '#CRO ', '#CYP ', '#CZE ', '#DEN ', '#EST ', '#MKD ', '#FIN ', '#FRA ',\
-                '#GEO ', '#GER ', '#GRE ', '#HUN ', '#ISL ', '#IRL ', '#ISR ', '#ITA ',\
-                '#LAT ', '#LTU ', '#MLT ', '#MDA ', '#MNE ', '#NOR ', '#POL ', '#POR ',\
-                '#ROM ', '#RUS ', '#SMR ', '#SRB ', '#SLO ', '#ESP ', '#SWE ', '#SUI ',\
-                '#NED ', '#UKR ', '#GBR ']
+all_hashtags = ['#ALB', '#ARM', '#AUS', '#AUT', '#AZE', '#BLR', '#BEL', '#BUL',\
+                '#CRO', '#CYP', '#CZE', '#DEN', '#EST', '#MKD', '#FIN', '#FRA',\
+                '#GEO', '#GER', '#GRE', '#HUN', '#ISL', '#IRL', '#ISR', '#ITA',\
+                '#LAT', '#LTU', '#MLT', '#MDA', '#MNE', '#NOR', '#POL', '#POR',\
+                '#ROM', '#RUS', '#SMR', '#SRB', '#SLO', '#ESP', '#SWE', '#SUI',\
+                '#NED', '#UKR', '#GBR']
 
 # Class that manages the events received from streaming API
 class TweetsListener(tweepy.StreamListener):
