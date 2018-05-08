@@ -189,8 +189,8 @@ results['tweets_log'] = np.log(1 + results['tweets']).fillna(0).replace([np.inf,
 # Manually apply model coeficients to data and compute predicted score
 X = results[features].values
 X = np.append(np.ones(X.shape[0])[...,None] , X, axis=1)
-X_norm = pd.DataFrame(scaler.transform(X))
-X_norm[0] = 1 # set intercept back to 1 (scaler sets it to 0 because of 0 variance)
+X_norm = X #pd.DataFrame(scaler.transform(X))
+#X_norm[0] = 1 # set intercept back to 1 (scaler sets it to 0 because of 0 variance)
 results['predicted_score'] = np.dot(X_norm, regressor.coef_.T) # np.dot(X, model_coefs)
 
 
