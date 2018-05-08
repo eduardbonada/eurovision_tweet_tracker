@@ -22,11 +22,15 @@ if production == True:
     regressor_file = '/home/ebonada/tests/euro2018/regressor.bin'
     features_file = '/home/ebonada/tests/euro2018/features.bin'
 else:
-    sqlite_file = 'db_2017_friday_and_final.db'
+    sqlite_file = 'db_2018_live.db'
     ranking_json_file = 'ranking.json'
     scaler_file = 'scaler.bin'
     regressor_file = 'regressor.bin'
     features_file = 'features.bin'
+
+# filter out all tweets previous to this one (like a date filter but with tweets, because the createdAt is a string difficult to filter from SQLite)
+min_tweet_id = 993655288795459584 # first tweet of tuesday
+
 
 """
 Aux functions
@@ -118,8 +122,10 @@ Count tweets and analyze sentiment
 all_sentiments = []
 for country in hashtags:
 
+    query = "SELECT * FROM TweetsRaw WHERE language='en' AND tweetText LIKE '%#{}%' AND tweetId >= {}".format(country, min_tweet_id)
+
     # get tweets from DB
-    country_tweets = pd.read_sql_query("SELECT * FROM TweetsRaw WHERE language='en' AND tweetText LIKE '%#{}%'".format(country), connection)
+    country_tweets = pd.read_sql_query(query, connection)
 
     # count number of sentiments
     sentiments_count = Counter(country_tweets.apply(get_tweet_sentiment, axis=1))
@@ -136,8 +142,10 @@ for country in hashtags:
 all_tweet_counts = []
 for country in hashtags:
 
+    query = "SELECT COUNT(*) AS count FROM TweetsRaw WHERE tweetText LIKE '%#{}%' AND tweetId >= {}".format(country, min_tweet_id)
+
     # get tweet count from DB
-    db.execute("SELECT COUNT(*) AS count FROM TweetsRaw WHERE tweetText LIKE '%#{}%'".format(country))
+    db.execute(query)
     country_tweet_count = db.fetchone()[0]
     
     # append country to list
