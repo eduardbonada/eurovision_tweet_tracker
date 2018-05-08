@@ -111,7 +111,7 @@ hashtags_semi2 = ['NOR', 'ROM', 'SRB', 'SMR', 'DEN', 'RUS', 'MDA', 'NED',\
                   'AUS', 'GEO', 'POL', 'MLT', 'HUN', 'LAT', 'SWE', 'MNE',\
                   'SLO', 'UKR',]
 hashtags_final = ['POR', 'FRA', 'GER', 'ITA', 'ESP', 'GBR']
-hashtags = all_hashtags
+hashtags = hashtags_semi1
 
 
 """
