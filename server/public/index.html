@@ -52,31 +52,32 @@
                              {{ country.tweets }} : 
                              <span style="color:green">{{ country.positive }}</span> | 
                              <span style="color:grey">{{ country.neutral }} </span> | 
-                             <span style="color:red">{{ country.negative }} </span>
+                             <span style="color:red">{{ country.negative }} </span> [
+                             <span style="color:silver">{{ country.score | number : 2 }} </span> ]
                         </span>
                     </h2>
 
-                    <h2 ng-if="country.position > 10 && country.position <= 100" class="text-center" style="background-color: khaki; padding: 5px;"> 
+                    <h2 ng-if="country.position > 10 && country.position <= 100" class="text-center" style="background-color: khaki; padding: 10px;"> 
                         {{ country.position }}. {{ country.name }}
                         <br> 
                         <span style="font-size: 20px;">
                              {{ country.tweets }} : 
                              <span style="color:green">{{ country.positive }}</span> | 
                              <span style="color:grey">{{ country.neutral }} </span> | 
-                             <span style="color:red">{{ country.negative }} </span>
-
+                             <span style="color:red">{{ country.negative }} </span> [
+                             <span style="color:silver">{{ country.score | number : 2 }} </span> ]
                         </span>
                     </h2>
 
-                    <h2 ng-if="country.position > 100" class="text-center" style="background-color: salmon; padding: 5px;"> 
+                    <h2 ng-if="country.position > 100" class="text-center" style="background-color: salmon; padding: 10px;"> 
                         {{ country.position }}. {{ country.name }}
                         <br> 
                         <span style="font-size: 20px;">
                              {{ country.tweets }} : 
                              <span style="color:green">{{ country.positive }}</span> | 
                              <span style="color:grey">{{ country.neutral }} </span> | 
-                             <span style="color:red">{{ country.negative }} </span>
-
+                             <span style="color:red">{{ country.negative }} </span> [
+                             <span style="color:silver">{{ country.score | number : 2 }} </span> ]
                         </span>
                     </h2>
 
