@@ -29,7 +29,9 @@ else:
     features_file = 'features.bin'
 
 # filter out all tweets previous to this one (like a date filter but with tweets, because the createdAt is a string difficult to filter from SQLite)
-min_tweet_id = 993655288795459584 # first tweet of tuesday
+min_tweet_id = 994124952352718849
+# 993655288795459584 # first tweet of tuesday at 00:00
+# 994124952352718849 # first tweet of wednesday at 08:00
 
 
 """
@@ -110,8 +112,9 @@ hashtags_semi1 = ['AZE', 'ISL', 'ALB', 'BEL', 'CZE', 'LTU', 'ISR', 'BLR',\
 hashtags_semi2 = ['NOR', 'ROM', 'SRB', 'SMR', 'DEN', 'RUS', 'MDA', 'NED',\
                   'AUS', 'GEO', 'POL', 'MLT', 'HUN', 'LAT', 'SWE', 'MNE',\
                   'SLO', 'UKR',]
-hashtags_final = ['POR', 'FRA', 'GER', 'ITA', 'ESP', 'GBR']
-hashtags = hashtags_semi1
+hashtags_final = ['POR', 'FRA', 'GER', 'ITA', 'ESP', 'GBR',\
+                  'IRL', 'CYP', 'FIN', 'CZE', 'EST', 'AUT', 'ISR', 'BUL', 'ALB', 'LTU']
+hashtags = hashtags_semi2
 
 
 """
