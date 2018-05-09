@@ -22,7 +22,7 @@ if production == True:
     regressor_file = '/home/ebonada/tests/euro2018/regressor.bin'
     features_file = '/home/ebonada/tests/euro2018/features.bin'
 else:
-    sqlite_file = 'db_2018_live.db'
+    sqlite_file = 'db_2018_right_after_semi1.db'
     ranking_json_file = 'ranking.json'
     scaler_file = 'scaler.bin'
     regressor_file = 'regressor.bin'
