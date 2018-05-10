@@ -202,7 +202,7 @@ Compute ranking
 """
 
 # Compute and log to console
-ranking = results[['negative', 'neutral', 'positive', 'tweets', 'predicted_score']].sort_values(by = 'predicted_score', ascending = False)
+ranking = results[['negative', 'neutral', 'positive', 'tweets', 'negative_perc', 'neutral_perc', 'positive_perc', 'tweets_perc','predicted_score']].sort_values(by = 'predicted_score', ascending = False)
 print(ranking)
 
 # log to file

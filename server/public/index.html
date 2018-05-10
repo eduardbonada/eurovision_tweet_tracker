@@ -50,9 +50,9 @@
                         <br> 
                         <span style="font-size: 20px;">
                              {{ country.tweets }} : 
-                             <span style="color:green">{{ country.positive }}</span> | 
-                             <span style="color:grey">{{ country.neutral }} </span> | 
-                             <span style="color:red">{{ country.negative }} </span> [
+                             <span style="color:green">{{ country.positive }} ({{ country.positive_perc | number : 1 }})</span> | 
+                             <span style="color:grey">{{ country.neutral }} ({{ country.neutral_perc | number : 1 }})</span> | 
+                             <span style="color:red">{{ country.negative }} ({{ country.negative_perc | number : 1 }})</span> [
                              <span style="color:silver">{{ country.score | number : 2 }} </span> ]
                         </span>
                     </h2>
@@ -62,9 +62,9 @@
                         <br> 
                         <span style="font-size: 20px;">
                              {{ country.tweets }} : 
-                             <span style="color:green">{{ country.positive }}</span> | 
-                             <span style="color:grey">{{ country.neutral }} </span> | 
-                             <span style="color:red">{{ country.negative }} </span> [
+                             <span style="color:green">{{ country.positive }} ({{ country.positive_perc | number : 1 }})</span> | 
+                             <span style="color:grey">{{ country.neutral }} ({{ country.neutral_perc | number : 1 }})</span> | 
+                             <span style="color:red">{{ country.negative }} ({{ country.negative_perc | number : 1 }})</span> [
                              <span style="color:silver">{{ country.score | number : 2 }} </span> ]
                         </span>
                     </h2>
@@ -74,9 +74,9 @@
                         <br> 
                         <span style="font-size: 20px;">
                              {{ country.tweets }} : 
-                             <span style="color:green">{{ country.positive }}</span> | 
-                             <span style="color:grey">{{ country.neutral }} </span> | 
-                             <span style="color:red">{{ country.negative }} </span> [
+                             <span style="color:green">{{ country.positive }} ({{ country.positive_perc | number : 1 }})</span> | 
+                             <span style="color:grey">{{ country.neutral }} ({{ country.neutral_perc | number : 1 }})</span> | 
+                             <span style="color:red">{{ country.negative }} ({{ country.negative_perc | number : 1 }})</span> [
                              <span style="color:silver">{{ country.score | number : 2 }} </span> ]
                         </span>
                     </h2>
