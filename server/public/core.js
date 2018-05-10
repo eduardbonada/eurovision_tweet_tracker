@@ -21,10 +21,10 @@ eurotweetModule.controller('eurotweetController', function($scope, $http){
                         'neutral' : response.data[country]['neutral'],
                         'negative' : response.data[country]['negative'],
                         'tweets' : response.data[country]['tweets'],
-                        'positive_perc' : response.data[country]['positive_perc'],
-                        'neutral_perc' : response.data[country]['neutral_perc'],
-                        'negative_perc' : response.data[country]['negative_perc'],
-                        'tweets_perc' : response.data[country]['tweets_perc'],
+                        'positive_perc' : 100 * response.data[country]['positive_perc'],
+                        'neutral_perc' : 100 * response.data[country]['neutral_perc'],
+                        'negative_perc' : 100 * response.data[country]['negative_perc'],
+                        'tweets_perc' : 100 * response.data[country]['tweets_perc'],
                         'score' : response.data[country]['predicted_score']
                     });
                 
