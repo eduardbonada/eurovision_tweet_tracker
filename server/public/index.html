@@ -48,8 +48,8 @@
                     <h2 ng-if="country.position <= 10" class="text-center" style="background-color: palegreen; padding: 10px;"> 
                         {{ country.position }}. {{ country.name }}
                         <br> 
-                        <span style="font-size: 20px;">
-                             {{ country.tweets }} : 
+                        <span style="font-size: 18px;">
+                             {{ country.tweets }} {{ country.tweets | number 1 }}%: 
                              <span style="color:green">{{ country.positive }} {{ country.positive_perc | number : 1 }}%</span> | 
                              <span style="color:grey">{{ country.neutral }} {{ country.neutral_perc | number : 1 }}%</span> | 
                              <span style="color:red">{{ country.negative }} {{ country.negative_perc | number : 1 }}%</span> [
@@ -60,8 +60,8 @@
                     <h2 ng-if="country.position > 10 && country.position <= 100" class="text-center" style="background-color: khaki; padding: 10px;"> 
                         {{ country.position }}. {{ country.name }}
                         <br> 
-                        <span style="font-size: 20px;">
-                             {{ country.tweets }} : 
+                        <span style="font-size: 18px;">
+                             {{ country.tweets }} {{ country.tweets | number 1 }}%: 
                              <span style="color:green">{{ country.positive }} {{ country.positive_perc | number : 1 }}%</span> | 
                              <span style="color:grey">{{ country.neutral }} {{ country.neutral_perc | number : 1 }}%</span> | 
                              <span style="color:red">{{ country.negative }} {{ country.negative_perc | number : 1 }}%</span> [                             <span style="color:silver">{{ country.score | number : 2 }} </span> ]
@@ -71,8 +71,8 @@
                     <h2 ng-if="country.position > 100" class="text-center" style="background-color: salmon; padding: 10px;"> 
                         {{ country.position }}. {{ country.name }}
                         <br> 
-                        <span style="font-size: 20px;">
-                             {{ country.tweets }} : 
+                        <span style="font-size: 18px;">
+                             {{ country.tweets }} {{ country.tweets | number 1 }}%: 
                              <span style="color:green">{{ country.positive }} {{ country.positive_perc | number : 1 }}%</span> | 
                              <span style="color:grey">{{ country.neutral }} {{ country.neutral_perc | number : 1 }}%</span> | 
                              <span style="color:red">{{ country.negative }} {{ country.negative_perc | number : 1 }}%</span> [
