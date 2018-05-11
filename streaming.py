@@ -29,7 +29,7 @@ all_hashtags = ['#ALB', '#ARM', '#AUS', '#AUT', '#AZE', '#BLR', '#BEL', '#BUL',\
                 '#CRO', '#CYP', '#CZE', '#DEN', '#EST', '#MKD', '#FIN', '#FRA',\
                 '#GEO', '#GER', '#GRE', '#HUN', '#ISL', '#IRL', '#ISR', '#ITA',\
                 '#LAT', '#LTU', '#MLT', '#MDA', '#MNE', '#NOR', '#POL', '#POR',\
-                '#ROM', '#RUS', '#SMR', '#SRB', '#SLO', '#ESP', '#SWE', '#SUI',\
+                '#ROU', '#RUS', '#SMR', '#SRB', '#SLO', '#ESP', '#SWE', '#SUI',\
                 '#NED', '#UKR', '#GBR']
 
 # Class that manages the events received from streaming API

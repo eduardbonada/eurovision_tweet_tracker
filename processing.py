@@ -33,7 +33,7 @@ min_tweet_id = 994124952352718849
 # 993655288795459584 # first tweet of tuesday at 00:00
 # 994124952352718849 # first tweet of wednesday at 08:00
 # 994366557294866432 # first tweet of thursday at 00:00
-
+# ?????????????????? # first tweet of saturday at 00:00
 
 """
 Aux functions
@@ -105,7 +105,7 @@ all_hashtags = ['ALB', 'ARM', 'AUS', 'AUT', 'AZE', 'BLR', 'BEL', 'BUL',\
                 'CRO', 'CYP', 'CZE', 'DEN', 'EST', 'MKD', 'FIN', 'FRA',\
                 'GEO', 'GER', 'GRE', 'HUN', 'ISL', 'IRL', 'ISR', 'ITA',\
                 'LAT', 'LTU', 'MLT', 'MDA', 'MNE', 'NOR', 'POL', 'POR',\
-                'ROM', 'RUS', 'SMR', 'SRB', 'SLO', 'ESP', 'SWE', 'SUI',\
+                'ROU', 'RUS', 'SMR', 'SRB', 'SLO', 'ESP', 'SWE', 'SUI',\
                 'NED', 'UKR', 'GBR']
 hashtags_semi1 = ['AZE', 'ISL', 'ALB', 'BEL', 'CZE', 'LTU', 'ISR', 'BLR',\
                   'EST', 'BUL', 'MKD', 'CRO', 'AUT', 'GRE', 'FIN', 'ARM',\
@@ -114,8 +114,9 @@ hashtags_semi2 = ['NOR', 'ROM', 'SRB', 'SMR', 'DEN', 'RUS', 'MDA', 'NED',\
                   'AUS', 'GEO', 'POL', 'MLT', 'HUN', 'LAT', 'SWE', 'MNE',\
                   'SLO', 'UKR',]
 hashtags_final = ['POR', 'FRA', 'GER', 'ITA', 'ESP', 'GBR',\
-                  'IRL', 'CYP', 'FIN', 'CZE', 'EST', 'AUT', 'ISR', 'BUL', 'ALB', 'LTU']
-hashtags = hashtags_semi2
+                  'IRL', 'CYP', 'FIN', 'CZE', 'EST', 'AUT', 'ISR', 'BUL', 'ALB', 'LTU',\
+                  'AUS', 'DEN', 'HUN', 'MDA', 'NED', 'NOR', 'SRB', 'SLO', 'SWE', 'UKR']
+hashtags = hashtags_final
 
 
 """
