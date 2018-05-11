@@ -45,7 +45,7 @@
                 <!-- LOOP OVER THE COUNTRIES -->
                 <div ng-repeat="country in ranking">
 
-                    <h2 ng-if="country.position <= 10" class="text-center" style="background-color: palegreen; padding: 5px;"> 
+                    <h2 ng-if="country.position <= 5" class="text-center" style="background-color: palegreen; padding: 5px;"> 
                         {{ country.position }}. {{ country.name }}
                         <br> 
                         <p style="font-size: 16px; line-height: 20px; margin-bottom: 0px">
@@ -63,7 +63,7 @@
                         </p>
                     </h2>
 
-                    <h2 ng-if="country.position > 10 && country.position <= 100" class="text-center" style="background-color: khaki; padding: 10px;"> 
+                    <h2 ng-if="country.position > 5 && country.position <= 21" class="text-center" style="background-color: khaki; padding: 10px;"> 
                         {{ country.position }}. {{ country.name }}
                         <br> 
                         <p style="font-size: 16px; line-height: 20px; margin-bottom: 0px">
@@ -81,7 +81,7 @@
                          </p>
                     </h2>
 
-                    <h2 ng-if="country.position > 100" class="text-center" style="background-color: salmon; padding: 10px;"> 
+                    <h2 ng-if="country.position > 21" class="text-center" style="background-color: salmon; padding: 10px;"> 
                         {{ country.position }}. {{ country.name }}
                         <br> 
                         <p style="font-size: 16px; line-height: 20px; margin-bottom: 0px">
