@@ -1,0 +1,112 @@
+<!doctype html>
+
+<html ng-app="eurotweetModule">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Eurotweet App</title>
+
+    <!-- LOAD LIBRARIES -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><!-- load bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- load jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script> <!-- load angular -->
+    <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+    <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="sprite-flags-48x48.css">
+
+    <!-- LOAD ANGULAR CODE -->
+    <script src="core.js"></script>
+
+    <style>
+        html { overflow-y:scroll; }
+        body { padding-top:50px; }
+    </style>
+
+</head>
+
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-controller="eurotweetController">
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="jumbotron text-center" style="background-color: mediumpurple">
+            <h1 style="color:white">Eurovision 2018</h1>
+            <h2 style="color:lightgray">Prediction of final ranking</h2>
+            <br>
+            <a href="tweets.png"><span style="color:rebeccapurple; font-size: x-large">{{num_tweets_v2}} tweets</span></a>
+            <br><br>
+            <a href="index.html"><span style="color:rebeccapurple; font-size: large">Go to today's ranking</span></a>
+        </div>
+
+        <!-- COUNTRIES LIST -->
+        <div id="ranking-list" class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+
+                <!-- LOOP OVER THE COUNTRIES -->
+                <div ng-repeat="country in ranking_v2">
+
+                    <h2 ng-if="country.position <= 5" class="text-center" style="background-color: palegreen; padding: 5px;"> 
+                        {{ country.position }}. {{ country.name }}
+                        <br> 
+                        <p style="font-size: 16px; line-height: 20px; margin-bottom: 0px">
+                             {{ country.tweets }} :
+                             <span style="color:green">{{ country.positive }} </span> | 
+                             <span style="color:grey">{{ country.neutral }} </span> | 
+                             <span style="color:red">{{ country.negative }} </span>
+                             <br>
+                             {{ country.tweets_perc | number : 0 }}% :
+                             <span style="color:green">{{ country.positive_perc | number : 0 }}%</span> | 
+                             <span style="color:grey">{{ country.neutral_perc | number : 0 }}%</span> | 
+                             <span style="color:red">{{ country.negative_perc | number : 0 }}%</span> 
+                             :
+                             {{ country.score | number : 2 }}
+                        </p>
+                    </h2>
+
+                    <h2 ng-if="country.position > 5 && country.position <= 21" class="text-center" style="background-color: khaki; padding: 10px;"> 
+                        {{ country.position }}. {{ country.name }}
+                        <br> 
+                        <p style="font-size: 16px; line-height: 20px; margin-bottom: 0px">
+                             {{ country.tweets }} :
+                             <span style="color:green">{{ country.positive }} </span> | 
+                             <span style="color:grey">{{ country.neutral }} </span> | 
+                             <span style="color:red">{{ country.negative }} </span>
+                             <br>
+                             {{ country.tweets_perc | number : 0 }}% :
+                             <span style="color:green">{{ country.positive_perc | number : 0 }}%</span> | 
+                             <span style="color:grey">{{ country.neutral_perc | number : 0 }}%</span> | 
+                             <span style="color:red">{{ country.negative_perc | number : 0 }}%</span> 
+                             :
+                             {{ country.score | number : 2 }}
+                         </p>
+                    </h2>
+
+                    <h2 ng-if="country.position > 21" class="text-center" style="background-color: salmon; padding: 10px;"> 
+                        {{ country.position }}. {{ country.name }}
+                        <br> 
+                        <p style="font-size: 16px; line-height: 20px; margin-bottom: 0px">
+                             {{ country.tweets }} :
+                             <span style="color:green">{{ country.positive }} </span> | 
+                             <span style="color:grey">{{ country.neutral }} </span> | 
+                             <span style="color:red">{{ country.negative }} </span>
+                             <br>
+                             {{ country.tweets_perc | number : 0 }}% :
+                             <span style="color:green">{{ country.positive_perc | number : 0 }}%</span> | 
+                             <span style="color:grey">{{ country.neutral_perc | number : 0 }}%</span> | 
+                             <span style="color:red">{{ country.negative_perc | number : 0 }}%</span> 
+                             :
+                             {{ country.score | number : 2 }}
+                         </p>
+                    </h2>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
