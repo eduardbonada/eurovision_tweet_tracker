@@ -27,6 +27,13 @@ app.get('/api/ranking', function(req, res) {
 
 });
 
+// get ranking v2
+app.get('/api/ranking_v2', function(req, res) {
+
+  res.json(JSON.parse(fs.readFileSync('../ranking_all.json', 'utf8')));
+
+});
+
 /*
 * FRONTEND ROUTES
 */
