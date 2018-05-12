@@ -17,7 +17,7 @@ production = True
 # set filenames depending on the environment
 if production == True:
     sqlite_file = '/home/ebonada/tests/euro2018/db_2018_live.db'
-    ranking_json_file = '/home/ebonada/tests/euro2018/ranking.json'
+    ranking_json_file = '/home/ebonada/tests/euro2018/ranking_all.json'
     scaler_file = '/home/ebonada/tests/euro2018/scaler.bin'
     regressor_file = '/home/ebonada/tests/euro2018/regressor.bin'
     features_file = '/home/ebonada/tests/euro2018/features.bin'
