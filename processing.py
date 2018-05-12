@@ -29,11 +29,11 @@ else:
     features_file = 'features.bin'
 
 # filter out all tweets previous to this one (like a date filter but with tweets, because the createdAt is a string difficult to filter from SQLite)
-min_tweet_id = 993655288795459584
+min_tweet_id = 995091502320832517
 # 993655288795459584 # first tweet of tuesday at 00:00
 # 994124952352718849 # first tweet of wednesday at 08:00
 # 994366557294866432 # first tweet of thursday at 00:00
-# ?????????????????? # first tweet of saturday at 00:00
+# 995091502320832517 # first tweet of saturday at 00:00
 
 """
 Aux functions

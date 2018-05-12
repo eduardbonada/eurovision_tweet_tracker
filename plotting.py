@@ -23,7 +23,7 @@ else:
     plots_file = 'server/public/tweets.png'
 
 # set plot limits
-min_date_tweets_plot = datetime(2018,5,11,6,0)
+min_date_tweets_plot = datetime(2018,5,12,8,0)
 hours_shown_in_tweets_per_hour = 1
 
 # Setup sqlite to read from
