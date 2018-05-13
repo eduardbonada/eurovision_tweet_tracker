@@ -29,13 +29,15 @@ else:
     features_file = 'features.bin'
 
 # filter out all tweets previous to this one (like a date filter but with tweets, because the createdAt is a string difficult to filter from SQLite)
-min_tweet_id = 995091502320832517
-# 993655288795459584 # first tweet of tuesday at 00:00
-# 994124952352718849 # first tweet of wednesday at 08:00
-# 994366557294866432 # first tweet of thursday at 00:00
-# 995091502320832517 # first tweet of saturday at 00:00
+min_tweet_id = 993655288795459584
+# 993655288795459584 # first tweet of tuesday at 00:00 server time (-3)
+# 994366557294866432 # first tweet of thursday at 00:00 server time (-3)
+# 995091502320832517 # first tweet of saturday at 00:00 server time (-3)
 
-max_tweet_id = 995423372669603840 # tweet at the end of the votes (aprox)
+max_tweet_id = 993655288795159584
+# 993958724170633216 # tweet at the end of the votes on tuesday (aprox)
+# 994683504372969478 # tweet at the end of the votes on thursday (aprox)
+# 995423372669603840 # tweet at the end of the votes on saturday (aprox)
 
 """
 Aux functions
@@ -118,7 +120,7 @@ hashtags_semi2 = ['NOR', 'ROM', 'SRB', 'SMR', 'DEN', 'RUS', 'MDA', 'NED',\
 hashtags_final = ['POR', 'FRA', 'GER', 'ITA', 'ESP', 'GBR',\
                   'IRL', 'CYP', 'FIN', 'CZE', 'EST', 'AUT', 'ISR', 'BUL', 'ALB', 'LTU',\
                   'AUS', 'DEN', 'HUN', 'MDA', 'NED', 'NOR', 'SRB', 'SLO', 'SWE', 'UKR']
-hashtags = hashtags_final
+hashtags = hashtags_semi1
 
 
 """
@@ -212,3 +214,8 @@ print(ranking)
 # log to file
 with open(ranking_json_file, 'w') as f:
     f.write(ranking.to_json(orient = 'index'))
+
+# print out results for CSV
+#results.reset_index().apply(
+#    lambda r: print('2018_semi1,{},r,t,j,{},{},{},{}'.format(r['country'],r['tweets'],r['positive'],r['neutral'],r['negative'])),
+#    axis=1)
