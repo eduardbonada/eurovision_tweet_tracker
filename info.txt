@@ -1,0 +1,38 @@
+
+104.45.25.222:8080
+
+ssh ebonada@104.45.25.222
+
+key: VM_Tests_Edu
+
+·············································································
+
+forever start -c /usr/bin/python3 -l /home/ebonada/tests/euro2018/forever.log -o /home/ebonada/tests/euro2018/streaming.log -e /home/ebonada/tests/euro2018/streaming_error.log /home/ebonada/tests/euro2018/streaming.py
+
+[des de /server]
+forever start -l /home/ebonada/tests/euro2018/server/forever.log -o /home/ebonada/tests/euro2018/server/server.log -e /home/ebonada/tests/euro2018/server/server_err.log server.js
+
+forever list
+
+forever stop UID
+
+[obtenir DB des de client]
+scp ebonada@52.174.59.242:/home/ebonada/tests/euro2018/db_2018_live.db ./db_2018_NAME-OF-DB-SPLIT.db
+
+·············································································
+
+#*/5 * * * * /usr/bin/python3 /home/ebonada/python/eurotweet/processing.py > /home/ebonada/python/eurotweet/cron.log 2>&1
+
+#2-59/5 * * * * /usr/bin/python3 /home/ebonada/python/eurotweet/plotting.py > /home/ebonada/python/eurotweet/cron.log 2>&1
+
+#0-59/15 * * * * /usr/bin/python3 /home/ebonada/python/hyper/search.py >> /home/ebonada/python/hyper/cron_search.log 2>&1
+#0 * * * * /usr/bin/python3 /home/ebonada/python/hyper/search.py >> /home/ebonada/python/hyper/cron_search.log 2>&1
+
+#2-59/15 * * * * /usr/bin/python3 /home/ebonada/python/hyper/create_ranking.py >> /home/ebonada/python/hyper/cron_ranking.log 2>&1
+#2 * * * * /usr/bin/python3 /home/ebonada/python/hyper/create_ranking.py >> /home/ebonada/python/hyper/cron_ranking.log 2>&1
+
+#3-59/15 * * * * /usr/bin/python3 /home/ebonada/python/hyper/monitoring.py > /home/ebonada/python/hyper/server/public/monitoring.html 2>&1
+#3 * * * * /usr/bin/python3 /home/ebonada/python/hyper/monitoring.py > /home/ebonada/python/hyper/server/public/monitoring.html 2>&1
+
+#4-59/15 * * * * /usr/bin/python3 /home/ebonada/python/hyper/plotting.py >> /home/ebonada/python/hyper/cron_plotting.log 2>&1
+#4 * * * * /usr/bin/python3 /home/ebonada/python/hyper/plotting.py >> /home/ebonada/python/hyper/cron_plotting.log 2>&1
