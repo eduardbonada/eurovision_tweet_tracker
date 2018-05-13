@@ -12,7 +12,7 @@ from collections import Counter
 import pickle
 
 # set environment
-production = True
+production = False
 
 # set filenames depending on the environment
 if production == True:
@@ -22,7 +22,7 @@ if production == True:
     regressor_file = '/home/ebonada/tests/euro2018/regressor.bin'
     features_file = '/home/ebonada/tests/euro2018/features.bin'
 else:
-    sqlite_file = 'db_2018_live.db'
+    sqlite_file = '../dbs/db_2018.db'
     ranking_json_file = 'ranking.json'
     scaler_file = 'scaler.bin'
     regressor_file = 'regressor.bin'
@@ -34,6 +34,8 @@ min_tweet_id = 995091502320832517
 # 994124952352718849 # first tweet of wednesday at 08:00
 # 994366557294866432 # first tweet of thursday at 00:00
 # 995091502320832517 # first tweet of saturday at 00:00
+
+max_tweet_id = 995423372669603840 # tweet at the end of the votes (aprox)
 
 """
 Aux functions
@@ -127,7 +129,7 @@ Count tweets and analyze sentiment
 all_sentiments = []
 for country in hashtags:
 
-    query = "SELECT * FROM TweetsRaw WHERE language='en' AND tweetText LIKE '%#{}%' AND tweetId >= {}".format(country, min_tweet_id)
+    query = "SELECT * FROM TweetsRaw WHERE language='en' AND ( tweetText LIKE '%#{} %' OR tweetText LIKE '%#{}') AND tweetId >= {} AND tweetId < {}".format(country, country, min_tweet_id, max_tweet_id)
 
     # get tweets from DB
     country_tweets = pd.read_sql_query(query, connection)
@@ -147,7 +149,7 @@ for country in hashtags:
 all_tweet_counts = []
 for country in hashtags:
 
-    query = "SELECT COUNT(*) AS count FROM TweetsRaw WHERE tweetText LIKE '%#{}%' AND tweetId >= {}".format(country, min_tweet_id)
+    query = "SELECT COUNT(*) AS count FROM TweetsRaw WHERE ( tweetText LIKE '%#{} %' OR tweetText LIKE '%#{}') AND tweetId >= {} AND tweetId < {}".format(country, country, min_tweet_id, max_tweet_id)
 
     # get tweet count from DB
     db.execute(query)
