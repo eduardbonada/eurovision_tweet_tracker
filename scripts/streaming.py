@@ -101,10 +101,10 @@ class TweetsListener(tweepy.StreamListener):
 
 
 # Setup twitter API access
-consumer_key = 'Ib3yDL5HYSLxAqENZ6QCHRFex'
-consumer_secret = 'TuTQKld9os111vx7oMSM3PTfoNz9dZDcnACxIvHGL9euIvLE8I'
-access_token = '74265344-UOJgWD9vzB9wJvgnet3f63bkQdJ0rLGz9gg67fqDP'
-access_secret = '4AFqod7kCScnSDf9OcgmVeIdnxwa9ZKn9pwwFMBbpLi7u'
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_secret = ''
 
 # Manage twitter API access
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)

@@ -3,3 +3,5 @@
 *.ppk
 *.pem
 server/node_modules
+scripts/twitter_api.txt
+notebooks/metastore_db/
